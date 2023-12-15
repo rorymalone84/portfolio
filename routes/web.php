@@ -37,7 +37,7 @@ Route::middleware('auth')->group(function () {
 
     Route::resource('/about', AboutController::class);
     Route::resource('/skills', SkillController::class);
-    Route::resource('/project', ProjectController::class);
+    Route::resource('/projects', ProjectController::class);
 });
 
 require __DIR__ . '/auth.php';
