@@ -10,6 +10,8 @@ class AboutController extends Controller
 {
     public function index()
     {
-        return view('about.index', About::all());
+        $about = About::firstOrFail();
+
+        return view('about.index', compact('about'));
     }
 }
