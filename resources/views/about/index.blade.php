@@ -14,7 +14,11 @@
                 <a href="{{ route('about.create') }}" class="px-4 py-2 bg-indigo-600">Create</a>
             </div>
         @endif
-        <div class="relative overflow-x-auto shadow-md sm:rounded-lg">{{ $about->description }}</div>
-        <img src="{{ $about->image }}">
+        @if ($about)
+            <div class="relative overflow-x-auto shadow-md sm:rounded-lg">{{ $about->description }}</div>
+            <img src="{{ $about->image }}">
+        @else
+            <h2 class="px-6 py-4">No about me sction has been created yet</h2>
+        @endif
     </div>
 </x-app-layout>
