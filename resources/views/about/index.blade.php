@@ -7,11 +7,12 @@
     <div class="py-12">
         @if ($about)
             <div class="flex justify-end m-2 p-2">
-                <a href="{{ route('about.edit', $about->id) }}" class="px-4 py-2 bg-indigo-600">Edit</a>
+                <x-nav-link-button href="{{ route('about.edit', $about->id) }}"
+                    class="font-medium text-blue-600 dark:text-blue-500 hover:underline">Edit</x-nav-link-button>
             </div>
         @else
             <div class="flex justify-end m-2 p-2">
-                <a href="{{ route('about.create') }}" class="px-4 py-2 bg-indigo-600">Create</a>
+                <x-nav-link-button href="{{ route('about.create') }}" class="bg-green-500">Create</x-nav-link-button>
             </div>
         @endif
         @if ($about)

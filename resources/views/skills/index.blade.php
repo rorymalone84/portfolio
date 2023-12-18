@@ -6,7 +6,8 @@
     </x-slot>
     <div class="py-12">
         <div class="flex justify-end m-2 p-2">
-            <a href="{{ route('skills.create') }}" class="px-4 py-2 bg-indigo-600">Create</a>
+            <x-nav-link-button href="{{ route('skills.create') }}"
+                class="px-4 py-2 bg-indigo-600">Create</x-nav-link-button>
         </div>
         <div class="relative
                 overflow-x-auto shadow-md sm:rounded-lg">
@@ -21,8 +22,8 @@
                             {{ $skill->image }}
                         </td>
                         <td class="px-6 py-4">
-                            <a href=""
-                                class="font-medium text-blue-600 dark:text-blue-500 hover:underline">Edit</a>
+                            <x-nav-link-button href=""
+                                class="font-medium text-blue-600 dark:text-blue-500 hover:underline">Edit</x-nav-link-button>
                         </td>
                     </tr>
                 @empty

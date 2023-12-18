@@ -7,7 +7,8 @@
 
     <div class="py-12">
         <div class="flex justify-end m-2 p-2">
-            <a href="{{ route('projects.create') }}" class="px-4 py-2 bg-indigo-600">Create</a>
+            <x-nav-link-button href="{{ route('projects.create') }}"
+                class="px-4 py-2 bg-indigo-600">Create</x-nav-link-button>
         </div>
         <div class="relative overflow-x-auto shadow-md sm:rounded-lg">
             <x-table.HeadersAndBodySlot :headers="['name', 'skill', 'image', 'url', 'action']">
