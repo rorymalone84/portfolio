@@ -12,8 +12,8 @@ class Skill extends Model
 
     protected $fillable = ['name', 'image'];
 
-    public function projects()
+    public function skill()
     {
-        return $this->hasMany(Project::class);
+        return $this->belongsToMany(Project::class);
     }
 }

@@ -11,7 +11,7 @@
                 class="px-4 py-2 bg-indigo-600">Create</x-nav-link-button>
         </div>
         <div class="relative overflow-x-auto shadow-md sm:rounded-lg">
-            <x-table.HeadersAndBodySlot :headers="['name', 'skill', 'image', 'url', 'action']">
+            <x-table.HeadersAndBodySlot :headers="['name', 'skill', 'image', 'url']">
                 @forelse ($projects as $project)
                     <tbody>
                         <tr
@@ -21,17 +21,27 @@
                                 {{ $project->name }}
                             </th>
                             <td class="px-6 py-4">
-                                {{ $project->skill->name }}
+                                @foreach ($project->skills as $skill)
+                                    {{ $skill->name }}
+                                @endforeach
                             </td>
                             <td class="px-6 py-4">
-                                {{ $project->image }}
+                                <img src="{{ asset('storage/' . $project->image) }}" class="w-12 h-12" />
                             </td>
                             <td class="px-6 py-4">
-                                {{ $project->url }}
+                                {{ $project->project_url }}
                             </td>
-                            <td class="px-6 py-4">
-                                <a href=""
-                                    class="font-medium text-blue-600 dark:text-blue-500 hover:underline">Edit</a>
+                            <td class="px-6 py-4 flex justify-end">
+                                <x-nav-link-button href="{{ route('projects.edit', $project->id) }}"
+                                    class="mr-3">Edit</x-nav-link-button>
+                                <form action="{{ route('projects.destroy', $project->id) }}" method="POST">
+                                    <x-nav-link-button href="{{ route('projects.destroy', $project->id) }}"
+                                        class="bg-red-500 text-gray-300"
+                                        onclick="event.preventDefault(); this.closest('form').submit()">
+                                        @csrf
+                                        @method('DELETE')
+                                        Delete</x-nav-link-button>
+                                </form>
                             </td>
                         </tr>
                     @empty

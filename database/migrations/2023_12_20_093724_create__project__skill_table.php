@@ -11,12 +11,14 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('projects', function (Blueprint $table) {
+        Schema::create('project_skill', function (Blueprint $table) {
             $table->id();
-            $table->string('name');
-            $table->string('image')->nullable();
-            $table->string('project_url')->nullable();
+            $table->unsignedBigInteger('project_id');
+            $table->unsignedBigInteger('skill_id');
             $table->timestamps();
+
+            $table->foreign('project_id')->references('id')->on('projects')->onDelete('cascade');
+            $table->foreign('skill_id')->references('id')->on('skills')->onDelete('cascade');
         });
     }
 
@@ -25,6 +27,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('projects');
+        Schema::dropIfExists('project_skill');
     }
 };

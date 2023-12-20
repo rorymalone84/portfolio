@@ -11,7 +11,7 @@
         </div>
         <div class="relative
                 overflow-x-auto shadow-md sm:rounded-lg">
-            <x-table.HeadersAndBodySlot :headers="['name', 'image', 'action']">
+            <x-table.HeadersAndBodySlot :headers="['name', 'image']">
                 @forelse($skills as $skill)
                     <tr
                         class="odd:bg-white odd:dark:bg-gray-900 even:bg-gray-50 even:dark:bg-gray-800 border-b dark:border-gray-700">
@@ -19,11 +19,20 @@
                             {{ $skill->name }}
                         </th>
                         <td class="px-6 py-4">
-                            {{ $skill->image }}
+                            <img src="{{ asset('storage/' . $skill->image) }}" alt="{{ $skill->name }}"
+                                class="w-12 h-12">
                         </td>
-                        <td class="px-6 py-4">
-                            <x-nav-link-button href=""
-                                class="font-medium text-blue-600 dark:text-blue-500 hover:underline">Edit</x-nav-link-button>
+                        <td class="px-6 py-4 flex justify-end">
+                            <x-nav-link-button href="{{ route('skills.edit', $skill->id) }}"
+                                class="mr-3">Edit</x-nav-link-button>
+                            <form action="{{ route('skills.destroy', $skill->id) }}" method="POST">
+                                <x-nav-link-button href="{{ route('skills.destroy', $skill->id) }}"
+                                    class="bg-red-500 text-gray-300"
+                                    onclick="event.preventDefault(); this.closest('form').submit()">
+                                    @csrf
+                                    @method('DELETE')
+                                    Delete</x-nav-link-button>
+                            </form>
                         </td>
                     </tr>
                 @empty
