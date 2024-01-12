@@ -11,7 +11,7 @@ class StoreAboutRequest extends FormRequest
      */
     public function authorize(): bool
     {
-        return false;
+        return true;
     }
 
     /**
@@ -22,7 +22,8 @@ class StoreAboutRequest extends FormRequest
     public function rules(): array
     {
         return [
-            //
+            'description' => ['required', 'min:10'],
+            'image' => ['required', 'image'],
         ];
     }
 }

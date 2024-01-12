@@ -16,10 +16,15 @@
             </div>
         @endif
         @if ($about)
-            <div class="relative overflow-x-auto shadow-md sm:rounded-lg">{{ $about->description }}</div>
-            <img src="{{ $about->image }}">
-        @else
-            <h2 class="px-6 py-4">No about me sction has been created yet</h2>
+            <div class="max-width-md mx-auto sm:px-6 lg:px-8 bg-gray-200 shadow-md rounded-md">
+                <div
+                    class="w-full mb-4 border border-gray-200 rounded-lg bg-gray-50 dark:bg-gray-700 dark:border-gray-600">
+                    <h1 class="text-align-center p-10">{{ $about->description }}</h1>
+                    <img src="{{ asset('storage/' . $about->image) }}" class="object-scale-down h-48 w-96">
+                </div>
+            @else
+                <h2 class="px-6 py-4">No about me section has been created yet</h2>
+            </div>
         @endif
     </div>
 </x-app-layout>
