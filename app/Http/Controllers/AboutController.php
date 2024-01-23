@@ -35,7 +35,7 @@ class AboutController extends Controller
                 'image' => $image,
             ]);
 
-            return to_route('about.index');
+            return to_route('about.index')->with('success', 'About section created');
         }
 
         return back();
@@ -61,6 +61,6 @@ class AboutController extends Controller
             'image' => $image
         ]);
 
-        return to_route('about.index');
+        return to_route('about.index')->with('success', 'About section updated');
     }
 }

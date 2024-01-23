@@ -40,7 +40,7 @@ class ProjectController extends Controller
 
             $project->skills()->attach($request->skills);
 
-            return to_route('skills.index');
+            return to_route('skills.index')->with('success', 'New skill created');
         }
 
         return back();
@@ -81,13 +81,13 @@ class ProjectController extends Controller
 
         $project->skills()->sync($request->skills);
 
-        return to_route('projects.index');
+        return to_route('projects.index')->with('success', 'Project updated');
     }
 
     public function destroy(Project $project)
     {
         Storage::delete($project->image);
         $project->delete();
-        return back();
+        return back()->with('danger', 'Project deleted');
     }
 }
