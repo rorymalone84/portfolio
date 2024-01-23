@@ -40,7 +40,7 @@ class ProjectController extends Controller
 
             $project->skills()->attach($request->skills);
 
-            return to_route('skills.index')->with('success', 'New skill created');
+            return to_route('skills.index')->with('success', 'New project created');
         }
 
         return back();
