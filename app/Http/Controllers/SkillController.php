@@ -33,10 +33,10 @@ class SkillController extends Controller
                 'image' => $image
             ]);
 
-            return to_route('skills.index');
+            return to_route('skills.index')->with('success', 'New skill created');
         }
 
-        return back();
+        return back()->with('danger', 'You missed something');
     }
 
     public function edit(Skill $skill)
@@ -57,13 +57,13 @@ class SkillController extends Controller
             'image' => $image
         ]);
 
-        return to_route('skills.index');
+        return to_route('skills.index')->with('success', 'Skill updated');
     }
 
     public function destroy(Skill $skill)
     {
         Storage::delete($skill->image);
         $skill->delete();
-        return back();
+        return back()->with('danger', 'Skill deleted');
     }
 }
