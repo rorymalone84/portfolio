@@ -6,6 +6,7 @@ use App\Http\Controllers\AboutController;
 use App\Http\Controllers\SkillController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\ProjectController;
+use App\Http\Controllers\PortfolioController;
 
 /*
 |--------------------------------------------------------------------------
@@ -18,9 +19,7 @@ use App\Http\Controllers\ProjectController;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
+Route::get('/', [PortfolioController::class, 'display']);
 
 Route::get('/dashboard', function () {
     return view('dashboard');
