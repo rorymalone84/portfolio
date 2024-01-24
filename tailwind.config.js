@@ -14,7 +14,8 @@ export default {
     theme: {
         fontFamily: {
             primary: "Playfair Display",
-            body: "Work Sans"
+            body: "Work Sans",
+            logo: "Grape Nuts"
         },
         container:{
             default: "1rem",
