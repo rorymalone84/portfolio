@@ -35,6 +35,10 @@ export default {
                 indigo: colors.indigo,
                 green: colors.green,
                 red: colors.red
+            },
+            backgroundImage: {
+                'light-hero-image': "url('images/light-background.jpg')",
+                'dark-hero-image': "url('images/dark-background.jpg')",
             }
         }
     },
