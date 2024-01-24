@@ -21,6 +21,7 @@
 
 <body class="font-sans text-gray-900 antialiased">
     <div class="bg-slate-200 dark:bg-slate-900">
+        <x-frontend.header />
         <main class="main-h-screen">
             {{ $slot }}
         </main>
