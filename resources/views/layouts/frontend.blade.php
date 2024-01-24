@@ -26,6 +26,7 @@
         <main class="main-h-screen">
             {{ $slot }}
         </main>
+        <x-frontend.footer />
     </div>
 </body>
 
