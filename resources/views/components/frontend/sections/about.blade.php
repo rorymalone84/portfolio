@@ -1,4 +1,5 @@
-<div class="relative isolate overflow-hidden bg-light-secondary py-24 sm:py-32">
+<div
+    class="relative isolate overflow-hidden bg-gradient-to-r from-light-secondary via-gray-200 to-light-secondary py-24 sm:py-32">
     <div class="mx-auto max-w-7xl px-6 lg:px-8">
         <div class="mx-auto max-w-2xl lg:mx-0">
             <h1 class="text-4xl font-bold tracking-tight sm:text-6xl">About Me</h1>
