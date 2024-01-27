@@ -2,8 +2,8 @@
     <div class="bg-light-quaternary py-12 sm:py-12">
         <div class="mx-auto max-w-7xl px-6 lg:px-6">
             <div class="mx-auto max-w-2xl lg:mx-0">
-                <h2 class="text-3xl font-bold tracking-tight sm:text-4xl">My Projects</h2>
-                <p class="mt-2 mb-4 text-lg leading-8 text-gray-600 py-2">I created these projects.</p>
+                <h2 class="text-3xl font-bold tracking-tight sm:text-4xl text-white">My Projects</h2>
+                <p class="mt-2 mb-4 text-lg leading-8 text-white py-2">I created these projects.</p>
             </div>
             @forelse ($projects as $project)
                 <div

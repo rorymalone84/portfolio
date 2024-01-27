@@ -1,9 +1,12 @@
 <?php
 
 use App\Models\Skill;
+use App\Mail\ContactMail;
+use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AboutController;
 use App\Http\Controllers\SkillController;
+use App\Http\Controllers\ContactController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\ProjectController;
 use App\Http\Controllers\PortfolioController;
@@ -20,10 +23,17 @@ use App\Http\Controllers\PortfolioController;
 */
 
 Route::get('/', [PortfolioController::class, 'display']);
+Route::get('/testroute', function () {
+    $name = 'rory';
+    $email = 'rorymalone@live.com';
+    $body = 'this is a test email';
+    Mail::to('rorymalone@live.com')->send(new ContactMail($name, $email, $body));
+});
 
 Route::get('/dashboard', function () {
     return view('dashboard');
 })->name('dashboard');
+Route::post('/contact/submit', [ContactController::class, 'submit'])->name('email.contact');
 
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');

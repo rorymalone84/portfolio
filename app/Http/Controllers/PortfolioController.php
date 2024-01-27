@@ -2,11 +2,12 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Controllers\Controller;
+use App\Models\User;
 use App\Models\About;
-use App\Models\Project;
 use App\Models\Skill;
+use App\Models\Project;
 use Illuminate\Http\Request;
+use App\Http\Controllers\Controller;
 
 class PortfolioController extends Controller
 {
@@ -15,7 +16,8 @@ class PortfolioController extends Controller
         return view('welcome')->with([
             'about' => About::first(),
             'skills' => Skill::all(),
-            'projects' => Project::all()
+            'projects' => Project::all(),
+            'contact' => User::first(),
         ]);
     }
 }

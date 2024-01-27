@@ -3,4 +3,5 @@
     <x-frontend.sections.about :about="$about" />
     <x-frontend.sections.skills :skills="$skills" />
     <x-frontend.sections.projects :projects="$projects" />
+    <x-frontend.sections.contact :contact="$contact" />
 </x-frontend-layout>
