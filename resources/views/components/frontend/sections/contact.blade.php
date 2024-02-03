@@ -74,8 +74,8 @@
                 <button :disabled="form.processing" x-text="buttonText"
                     class="mt-4 text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800"></button>
             </div>
-
         </form>
+
         <div class="mx-auto max-w-7xl px-6 lg:px-8">
             <div class="mx-auto max-w-2xl lg:mx-0">
                 <p class="mt-2 mb-4 text-lg leading-8 text-gray-800 py-2">Or E-mail directly:
