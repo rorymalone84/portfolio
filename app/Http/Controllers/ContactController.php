@@ -8,6 +8,8 @@ use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Mail;
 use App\Http\Requests\ContactRequest;
 use App\Mail\ContactMail;
+use Illuminate\Foundation\Http\Middleware\HandlePrecognitiveRequests;
+
 
 class ContactController extends Controller
 {

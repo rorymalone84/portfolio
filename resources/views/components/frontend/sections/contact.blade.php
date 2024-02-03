@@ -8,20 +8,48 @@
             </div>
         </div>
 
-        <form x-data="contactForm" @submit.prevent="submitForm">
+        <form x-data="{
+            form: $form('post', '/contact/submit', {
+                name: '',
+                email: '',
+                body: '',
+            }),
+            formShow: false,
+            formMessage: 'your message has been sent',
+            formLoading: false,
+            buttonText: 'Submit',
+            submit() {
+                this.form.submit()
+                    .then(response => {
+                        this.formShow = true;
+                        this.form.name = '';
+                        this.form.email = '';
+                        this.form.body = '';
+                    }).catch(error => {
+                        alert('An error occurred.');
+                    });
+        
+            },
+        }" @submit.prevent="submit">
             @csrf
             <div class="px-8 lg:px-8p-4 sm:w-full md:w-1/2 rounded">
                 <div class="mx-auto max-w-2xl lg:mx-0 mb-4">
                     <x-input-label for="name" :value="__('Name')" />
-                    <x-text-input id="name" class="block mt-1 sm:w-full md:w-1/3" type="text" name="name"
-                        x-model="formData.name" :value="old('name')" required autocomplete="Enter your name" />
-                    <x-input-error :messages="$errors->get('name')" class="mt-2" />
+                    <x-text-input id="name" class="block mt-1 sm:w-full md:w-1/3" type="text" id="name"
+                        name="name" x-model="form.name" @change="form.validate('name')" required
+                        autocomplete="Enter your name" />
+                    <template x-if="form.invalid('name')">
+                        <div x-text="form.errors.name" class="mt-2 bg-slate-100 text-red-600"></div>
+                    </template>
                 </div>
                 <div class="mx-auto max-w-2xl lg:mx-0 mb-4">
                     <x-input-label for="email" :value="__('Email')" />
-                    <x-text-input id="email" class="block mt-1 sm:w-full md:w-1/3" type="email" name="email"
-                        x-model="formData.email" :value="old('email')" required autocomplete="Enter your email" />
-                    <x-input-error :messages="$errors->get('email')" class="mt-2" />
+                    <x-text-input id="email" class="block mt-1 sm:w-full md:w-1/3" type="email" id="email"
+                        name="email" x-model="form.email" @change="form.validate('email')" required
+                        autocomplete="Enter your email" />
+                    <template x-if="form.invalid('email')">
+                        <div x-text="form.errors.email" class="mt-2 bg-slate-100 text-red-600"></div>
+                    </template>
                 </div>
                 <!-- success message if message got sent -->
                 <div x-text="formMessage" x-show="formShow" x-if="formShow, setTimeout(() => formShow = false, 10000)"
@@ -35,11 +63,15 @@
                 <div class="mx-auto max-w-2xl lg:mx-0">
                     <label for="body" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Your
                         Message</label>
-                    <textarea id="body" rows="4" name="body" x-model="formData.body"
+                    <textarea id="body" rows="4" id="body" name="body" x-model="form.body"
+                        @change="form.validate('body')"
                         class="block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                         placeholder="Write your thoughts here..."></textarea>
+                    <template x-if="form.invalid('body')">
+                        <div x-text="form.errors.body" class="mt-2 bg-slate-100 text-red-600"></div>
+                    </template>
                 </div>
-                <button :disabled="formLoading" x-text="buttonText"
+                <button :disabled="form.processing" x-text="buttonText"
                     class="mt-4 text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800"></button>
             </div>
 
@@ -56,42 +88,4 @@
     </div>
 </section>
 
-<script>
-    function contactForm() {
-        return {
-            formData: {
-                name: "",
-                email: "",
-                body: "",
-            },
-            formShow: false,
-            formMessage: "",
-            formLoading: false,
-            buttonText: "Submit",
-            submitForm() {
-                this.formMessage = "";
-                fetch('/contact/submit', {
-                        method: "POST",
-                        headers: {
-                            'X-CSRF-TOKEN': document.head.querySelector('meta[name=csrf-token]').content,
-                            "Content-Type": "application/json",
-                            Accept: "application/json",
-                        },
-                        body: JSON.stringify(this.formData),
-                    })
-                    .then(() => {
-                        this.formData.name = "";
-                        this.formData.email = "";
-                        this.formData.body = "";
-                        this.formShow = true;
-                        this.formMessage = "Message sent.";
-                        console.log("Form successfully submitted.");
-                    })
-                    .catch(() => {
-                        this.formMessage = "Something went wrong.";
-                        console.log("Something went wrong.");
-                    });
-            },
-        };
-    }
-</script>
+<script></script>

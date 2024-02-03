@@ -10,6 +10,7 @@ use App\Http\Controllers\ContactController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\ProjectController;
 use App\Http\Controllers\PortfolioController;
+use Illuminate\Foundation\Http\Middleware\HandlePrecognitiveRequests;
 
 /*
 |--------------------------------------------------------------------------
@@ -27,7 +28,7 @@ Route::get('/', [PortfolioController::class, 'display']);
 Route::get('/dashboard', function () {
     return view('dashboard');
 })->name('dashboard');
-Route::post('/contact/submit', [ContactController::class, 'submit'])->name('email.contact');
+Route::post('/contact/submit', [ContactController::class, 'submit'])->middleware([HandlePrecognitiveRequests::class]);
 
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
