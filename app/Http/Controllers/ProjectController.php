@@ -89,7 +89,11 @@ class ProjectController extends Controller
     public function destroy(Project $project)
     {
         $image_name = $project->image;
-        Storage::disk('s3')->delete('rm-portfolio-images/' . $image_name);
+        if (Storage::disk('s3')->exists('rm-portfolio-images/' . $image_name)) {
+            Storage::disk('s3')->delete('rm-portfolio-images/' . $image_name);
+        } else {
+            return back()->with('danger', 'Project not deleted from s3');
+        }
         $project->delete();
         return back()->with('danger', 'Project deleted');
     }

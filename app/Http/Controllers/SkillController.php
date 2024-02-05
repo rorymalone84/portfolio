@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Skill;
 use Illuminate\Http\Request;
+use App\Services\S3UploadService;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Storage;
 use App\Http\Requests\StoreSkillRequest;
@@ -23,14 +24,14 @@ class SkillController extends Controller
         return view('skills.create');
     }
 
-    public function store(StoreSkillRequest $request)
+    public function store(StoreSkillRequest $request, S3UploadService $s3UploadService)
     {
         if ($request->hasFile('image')) {
-            $image = $request->file('image')->store('skills');
+            $image_name = $s3UploadService->store_upload($request);
 
             Skill::create([
                 'name' => $request->name,
-                'image' => $image
+                'image' => $image_name
             ]);
 
             return to_route('skills.index')->with('success', 'New skill created');
@@ -44,17 +45,17 @@ class SkillController extends Controller
         return view('skills.edit', compact('skill'));
     }
 
-    public function update(Skill $skill, UpdateSkillRequest $request)
+    public function update(Skill $skill, UpdateSkillRequest $request, S3UploadService $s3UploadService)
     {
-        $image = $skill->image;
+        $image_name = $skill->image;
         if ($request->hasFile('image')) {
-            Storage::delete($skill->image);
-            $image = $request->file('image')->store('skills');
+            Storage::disk('s3')->delete('rm-portfolio-images/' . $skill->image);
+            $s3UploadService->update_upload($request, $skill);
         }
 
         $skill->update([
             'name' => $request->name,
-            'image' => $image
+            'image' => $image_name
         ]);
 
         return to_route('skills.index')->with('success', 'Skill updated');
@@ -62,7 +63,12 @@ class SkillController extends Controller
 
     public function destroy(Skill $skill)
     {
-        Storage::delete($skill->image);
+        $image_name = $skill->image;
+        if (Storage::disk('s3')->exists('rm-portfolio-images/' . $image_name)) {
+            Storage::disk('s3')->delete('rm-portfolio-images/' . $image_name);
+        } else {
+            return back()->with('danger', 'Skill not deleted from s3');
+        }
         $skill->delete();
         return back()->with('danger', 'Skill deleted');
     }

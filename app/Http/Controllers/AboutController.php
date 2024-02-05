@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\About;
 use Illuminate\Http\Request;
+use App\Services\S3UploadService;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Storage;
 use App\Http\Requests\StoreAboutRequest;
@@ -25,14 +26,14 @@ class AboutController extends Controller
     }
 
 
-    public function store(StoreAboutRequest $request)
+    public function store(StoreAboutRequest $request, S3UploadService $s3UploadService)
     {
         if ($request->hasFile('image')) {
-            $image = $request->file('image')->store('about');
+            $image_name = $s3UploadService->store_upload($request);
 
             About::create([
                 'description' => $request->description,
-                'image' => $image,
+                'image' => $image_name,
             ]);
 
             return to_route('about.index')->with('success', 'About section created');
@@ -48,17 +49,19 @@ class AboutController extends Controller
     }
 
 
-    public function update(UpdateAboutRequest $request, About $about)
+    public function update(UpdateAboutRequest $request, About $about, S3UploadService $s3UploadService)
     {
-        $image = $about->image;
+        $image_name = $about->image;
+
         if ($request->hasFile('image')) {
-            Storage::delete($about->image);
-            $image = $request->file('image')->store('about');
+            //goes to S3 bucket on production (comment code block in our out as required)
+            Storage::disk('s3')->delete('rm-portfolio-images/' . $image_name);
+            $s3UploadService->update_upload($request, $about);
         }
 
         $about->update([
             'description' => $request->description,
-            'image' => $image
+            'image' => $image_name
         ]);
 
         return to_route('about.index')->with('success', 'About section updated');
