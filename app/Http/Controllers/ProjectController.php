@@ -8,10 +8,12 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\StoreProjectRequest;
 use App\Http\Requests\UpdateProjectRequest;
 use App\Models\Skill;
+use App\Services\S3UploadService;
 use Illuminate\Support\Facades\Storage;
 
 class ProjectController extends Controller
 {
+
     public function index()
     {
         $projects =  Project::all();
@@ -25,16 +27,15 @@ class ProjectController extends Controller
         return view('projects.create', compact('skills'));
     }
 
-    public function store(StoreProjectRequest $request)
+    public function store(StoreProjectRequest $request, S3UploadService $s3UploadService)
     {
-        $skills = $request->skills;
-
         if ($request->hasFile('image')) {
-            $image = $request->file('image')->store('projects');
+
+            $image_name = $s3UploadService->store_upload($request);
 
             $project = Project::create([
                 'name' => $request->name,
-                'image' => $image,
+                'image' => $image_name,
                 'project_url' => $request->project_url,
             ]);
 
@@ -64,18 +65,19 @@ class ProjectController extends Controller
     }
 
 
-    public function update(UpdateProjectRequest $request, Project $project)
+    public function update(UpdateProjectRequest $request, Project $project, S3UploadService $s3UploadService)
     {
-        $image = $project->image;
+        $image_name = $project->image;
 
         if ($request->hasFile('image')) {
-            Storage::delete($project->image);
-            $image = $request->file('image')->store('projects');
+            //goes to S3 bucket on production (comment code block in our out as required)
+            Storage::disk('s3')->delete('rm-portfolio-images/' . $project->image);
+            $s3UploadService->update_upload($request, $project);
         }
 
         $project->update([
             'name' => $request->name,
-            'image' => $image,
+            'image' => $image_name,
             'project_url' => $request->project_url
         ]);
 
@@ -86,7 +88,8 @@ class ProjectController extends Controller
 
     public function destroy(Project $project)
     {
-        Storage::delete($project->image);
+        $image_name = $project->image;
+        Storage::disk('s3')->delete('rm-portfolio-images/' . $image_name);
         $project->delete();
         return back()->with('danger', 'Project deleted');
     }

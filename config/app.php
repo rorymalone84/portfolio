@@ -1,5 +1,6 @@
 <?php
 
+use Aws\Laravel\AwsServiceProvider;
 use Illuminate\Support\Facades\Facade;
 use Illuminate\Support\ServiceProvider;
 
