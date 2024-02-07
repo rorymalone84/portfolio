@@ -11,9 +11,9 @@ use App\Http\Controllers\Controller;
 
 class PortfolioController extends Controller
 {
-    public function display()
+    public function __invoke()
     {
-        return view('welcome')->with([
+        return view('portfolio')->with([
             'about' => About::first(),
             'skills' => Skill::all(),
             'projects' => Project::all(),

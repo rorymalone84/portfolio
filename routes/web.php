@@ -23,7 +23,7 @@ use Illuminate\Foundation\Http\Middleware\HandlePrecognitiveRequests;
 |
 */
 
-Route::get('/', [PortfolioController::class, 'display']);
+Route::get('/', PortfolioController::class)->name('portfolio');
 
 Route::get('/dashboard', function () {
     return view('dashboard');
