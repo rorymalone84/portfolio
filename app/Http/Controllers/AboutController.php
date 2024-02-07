@@ -54,9 +54,12 @@ class AboutController extends Controller
         $image_name = $about->image;
 
         if ($request->hasFile('image')) {
-            //goes to S3 bucket on production (comment code block in our out as required)
-            Storage::disk('s3')->delete('rm-portfolio-images/' . $image_name);
-            $s3UploadService->update_upload($request, $about);
+            if (Storage::disk('s3')->exists('rm-portfolio-images/' . $image_name)) {
+                Storage::disk('s3')->delete('rm-portfolio-images/' . $image_name);
+            } else {
+                return back()->with('danger', 'About image not deleted from s3');
+            }
+            $image_name = $s3UploadService->update_upload($request);
         }
 
         $about->update([

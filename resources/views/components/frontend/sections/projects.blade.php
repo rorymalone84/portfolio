@@ -9,7 +9,8 @@
                 <div
                     class="max-w-sm relative isolate overflow-hidden bg-gradient-to-r from-light-secondary via-gray-200 to-light-secondary py-12 sm:py-12 border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700">
                     <a href="#">
-                        <img class="rounded-t-lg" src="{{ asset('storage/' . $project->image) }}"
+                        <img class="rounded-t-lg"
+                            src="https://rm-portfolio-images.s3.eu-north-1.amazonaws.com/rm-portfolio-images/{{ $project->image }}"
                             alt="{{ $project->name }}" />
                     </a>
                     <div class="p-5">

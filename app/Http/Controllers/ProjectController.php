@@ -70,9 +70,12 @@ class ProjectController extends Controller
         $image_name = $project->image;
 
         if ($request->hasFile('image')) {
-            //goes to S3 bucket on production (comment code block in our out as required)
-            Storage::disk('s3')->delete('rm-portfolio-images/' . $project->image);
-            $s3UploadService->update_upload($request, $project);
+            if (Storage::disk('s3')->exists('rm-portfolio-images/' . $image_name)) {
+                Storage::disk('s3')->delete('rm-portfolio-images/' . $image_name);
+            } else {
+                return back()->with('danger', 'Skill not deleted from s3');
+            }
+            $image_name = $s3UploadService->update_upload($request);
         }
 
         $project->update([

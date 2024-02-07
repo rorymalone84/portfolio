@@ -10,8 +10,8 @@
             @forelse ($skills as $skill)
                 <article class="flex max-w-xl flex-col items-start justify-between">
                     <div class="relative mt-4 flex items-center gap-x-4">
-                        <img src="{{ asset('storage/' . $skill->image) }}" alt=""
-                            class="object-contain h-20 w-20 rounded-full">
+                        <img src="https://rm-portfolio-images.s3.eu-north-1.amazonaws.com/rm-portfolio-images/{{ $skill->image }}"
+                            alt="" class="object-contain h-20 w-20 rounded-full">
                         <div class="text-sm leading-6">
                             <p class="font-semibold text-gray-900">
                                 <a href="#">

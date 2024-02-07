@@ -48,9 +48,14 @@ class SkillController extends Controller
     public function update(Skill $skill, UpdateSkillRequest $request, S3UploadService $s3UploadService)
     {
         $image_name = $skill->image;
+
         if ($request->hasFile('image')) {
-            Storage::disk('s3')->delete('rm-portfolio-images/' . $skill->image);
-            $s3UploadService->update_upload($request, $skill);
+            if (Storage::disk('s3')->exists('rm-portfolio-images/' . $image_name)) {
+                Storage::disk('s3')->delete('rm-portfolio-images/' . $image_name);
+            } else {
+                return back()->with('danger', 'Skill image not deleted from s3');
+            }
+            $image_name = $s3UploadService->update_upload($request);
         }
 
         $skill->update([

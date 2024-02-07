@@ -23,8 +23,8 @@ before:z-[-5]">
             <div class="text-center">
                 <div class="flex flex-wrap justify-center">
                     <div class="w-6/12 sm:w-4/12 p-4">
-                        <img src="{{ asset('storage/' . $about->image) }}" alt="..."
-                            class="shadow rounded-full max-w-full h-auto align-middle border-none" />
+                        <img src="https://rm-portfolio-images.s3.eu-north-1.amazonaws.com/rm-portfolio-images/{{ $about->image }}"
+                            alt="..." class="shadow rounded-full max-w-full h-auto align-middle border-none" />
                     </div>
                 </div>
 

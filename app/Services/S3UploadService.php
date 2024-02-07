@@ -21,6 +21,7 @@ class S3UploadService
 
     public function update_upload($request)
     {
+
         $extension  = request()->file('image')->getClientOriginalExtension(); //This is to get the extension of the image file just uploaded
         $image_name = time() . '_' . $request->name . '.' . $extension;
         $request->file('image')->storeAs(
