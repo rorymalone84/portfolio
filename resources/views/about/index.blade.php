@@ -20,7 +20,8 @@
                 <div
                     class="w-full mb-4 border border-gray-200 rounded-lg bg-gray-50 dark:bg-gray-700 dark:border-gray-600">
                     <h1 class="text-align-center p-10">{{ $about->description }}</h1>
-                    <img src="{{ asset('storage/' . $about->image) }}" class="object-scale-down h-48 w-96">
+                    <img src="https://rm-portfolio-images.s3.eu-north-1.amazonaws.com/rm-portfolio-images/{{ $about->image }}"
+                        class="object-scale-down h-48 w-96">
                 </div>
             @else
                 <h2 class="px-6 py-4">No about me section has been created yet</h2>

@@ -19,8 +19,8 @@
                             {{ $skill->name }}
                         </th>
                         <td class="px-6 py-4">
-                            <img src="{{ asset('storage/' . $skill->image) }}" alt="{{ $skill->name }}"
-                                class="w-12 h-12">
+                            <img src="https://rm-portfolio-images.s3.eu-north-1.amazonaws.com/rm-portfolio-images/{{ $skill->image }}"
+                                alt="{{ $skill->name }}" class="w-12 h-12">
                         </td>
                         <td class="px-6 py-4 flex justify-end">
                             <x-nav-link-button href="{{ route('skills.edit', $skill->id) }}"

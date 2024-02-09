@@ -26,7 +26,8 @@
                                 @endforeach
                             </td>
                             <td class="px-6 py-4">
-                                <img src="{{ asset('storage/' . $project->image) }}" class="w-12 h-12" />
+                                <img src="https://rm-portfolio-images.s3.eu-north-1.amazonaws.com/rm-portfolio-images/{{ $project->image }}"
+                                    class="w-12 h-12" />
                             </td>
                             <td class="px-6 py-4">
                                 {{ $project->project_url }}
