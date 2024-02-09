@@ -24,8 +24,14 @@ before:z-[-5]">
                 <div class="text-center">
                     <div class="flex flex-wrap justify-center">
                         <div class="w-6/12 sm:w-4/12 p-4">
-                            <img src="https://rm-portfolio-images.s3.eu-north-1.amazonaws.com/rm-portfolio-images/{{ $about->image }}"
-                                alt="..." class="shadow rounded-full max-w-full h-auto align-middle border-none" />
+                            @if ($about)
+                                <img src="https://rm-portfolio-images.s3.eu-north-1.amazonaws.com/rm-portfolio-images/{{ $about->image }}"
+                                    alt="..."
+                                    class="shadow rounded-full max-w-full h-auto align-middle border-none" />
+                            @else
+                                <p class="mt-6 text-lg leading-8 text-gray-800">The portfolio owner hasn't added an
+                                    image yet</p>
+                            @endif
                         </div>
                     </div>
 
